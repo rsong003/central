@@ -1,6 +1,6 @@
 import { FETCH_TASKS, CREATE_TASK, GET_USERS_TASKS, GET_ALL_TASKS, FIND_ALL_TASKS_OF_USERS, GET_ALL_USERS } from '../Actions/index';
 
-const INITIAL_STATE = { allTasks: [], usersTasks: [], allTasksByUsers: [], allUsers: [], task: null };
+const INITIAL_STATE = { projectsByUser: [], allTasks: [], usersTasks: [], allTasksByUsers: [], allUsers: [], task: null };
 
 export default function(state = INITIAL_STATE, action) {
   //console.log('this is the reducer', action)
@@ -8,7 +8,7 @@ export default function(state = INITIAL_STATE, action) {
   case FETCH_TASKS:
     //return state.allTasks.concat([action.payload.data]);
     // return {...state, allTasks: action.payload.data};
-    return Object.assign({}, state, {allTasks: action.payload.data});
+    return Object.assign({}, state, {projectsByUser: action.payload.data});
   case CREATE_TASK:
     return Object.assign({}, state, {allTasks: [...state.allTasks, action.payload]});
 
