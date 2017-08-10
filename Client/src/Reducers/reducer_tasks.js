@@ -18,7 +18,7 @@ export default function(state = INITIAL_STATE, action) {
   case GET_ALL_TASKS:
     return Object.assign({}, state, {allTasks: action.payload})
   case FIND_ALL_TASKS_OF_USERS: 
-    return Object.assign({}, state, {}, {allTasksByUsers: action.payload})
+    return Object.assign({}, state, {allTasksByUsers: action.payload})
   case GET_ALL_USERS: 
     return Object.assign({}, state, {allUsers: action.payload})
   default:
