@@ -25,7 +25,11 @@ const mapDispathToProps = (dispatch) => {
 }
 
 const mapUserstoAllTasks = (alltasks, allUsers) =>{
-  console.log(alltasks, allUsers )
+  let names = function(allUsers){
+    for (let i = 0; i < allUsers.length; i++){
+
+    }
+  }
 }
 
 
@@ -38,6 +42,7 @@ class Dashboard extends Component{
   }
   
   render() {
+    
     return(
       <div className="dashboard-container">
         <div className="left-col">
