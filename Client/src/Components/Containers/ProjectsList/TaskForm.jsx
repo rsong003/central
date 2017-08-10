@@ -29,15 +29,15 @@ class TaskForm extends Component {
   }
 
   handleTaskForm(nameVal, categoryVal, contentVal) {
-    // e.preventDefault();
-    axios.post('http://reduxblog.herokuapp.com/api/posts?key=taskmon', {name: nameVal, categories: categoryVal, content: contentVal})
-      .then(res => {
-        console.log('here is the post res', res);
-        this.props.createTask(res);
-      })
-      .catch(err => {
-        console.log('error in the post', err);
-      });
+    // // e.preventDefault();
+    // axios.post('http://reduxblog.herokuapp.com/api/posts?key=taskmon', {name: nameVal, categories: categoryVal, content: contentVal})
+    //   .then(res => {
+    //     console.log('here is the post res', res);
+    //     this.props.createTask(res);
+    //   })
+    //   .catch(err => {
+    //     console.log('error in the post', err);
+    //   });
   }
 
   render() {

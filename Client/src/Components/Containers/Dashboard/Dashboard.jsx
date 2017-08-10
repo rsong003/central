@@ -16,11 +16,16 @@ const mapStateToProps = (state) =>{
   return {
     allTasks: state.tasks.allTasks,
     allUsers: state.tasks.allUsers,
-    allTasksUsers: state.tasks.usersTasks
+    allTasksUsers: state.tasks.usersTasks,
+    mappedUsersAndTasks : mapUserstoAllTasks(state.tasks.allTasks, state.tasks.allUsers)
   }
 }
 const mapDispathToProps = (dispatch) => {
   return bindActionCreators({getUsersTasks, getAllTasks, findAllTasksOfUser, getAllUsers}, dispatch)
+}
+
+const mapUserstoAllTasks = (alltasks, allUsers) =>{
+  console.log(alltasks, allUsers )
 }
 
 
