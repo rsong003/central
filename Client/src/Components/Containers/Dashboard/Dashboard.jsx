@@ -24,12 +24,39 @@ const mapDispathToProps = (dispatch) => {
   return bindActionCreators({getUsersTasks, getAllTasks, findAllTasksOfUser, getAllUsers}, dispatch)
 }
 
-const mapUserstoAllTasks = (alltasks, allUsers) =>{
-  let names = function(allUsers){
-    for (let i = 0; i < allUsers.length; i++){
-
+const mapUserstoAllTasks = (allTasks, allUsers) =>{
+  let nameObjects = {}
+  let userObjects = []
+  let users = []
+  for (let i = 0; i < allUsers.length; i++){
+    nameObjects[allUsers[i].id] = allUsers[i].username
+    if (!users.includes(allUsers[i].username)){
+      users.push(allUsers[i].username)
     }
   }
+  for (let i = 0; i < allTasks.length; i++){
+    allTasks[i].owner = nameObjects[allTasks[i].owner]
+  }
+  for (let i = 0; i < users.length; i++){
+    users[i] = {name: users[i], completed: 0, incomplete: 0}
+    for (let j = 0; j < allTasks.length; j++){
+      console.log(allTasks[j].owner, users[i].name)
+      if (allTasks[j].owner === users[i].name && allTasks[j].status === -1){
+        users[i].incomplete++
+      } else {
+        users[i].completed++
+      }
+    }
+  }
+  
+
+
+
+
+  console.log(users)
+
+  console.log(nameObjects)
+  console.log(allTasks)
 }
 
 
