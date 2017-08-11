@@ -27,17 +27,17 @@ export default class BarGraph extends Component{
   }
 
   render(){
-    console.log('this is the bargraph', this.props)
+    console.log('this is the bargraph', this.props.allTasksAndUsers)
     return (
-    <BarChart width={600} height={300} data={data}
+    <BarChart width={600} height={300} data={this.props.allTasksAndUsers}
         margin={{top: 20, right: 30, left: 20, bottom: 5}}>
       <XAxis dataKey="name"/>
-      <YAxis/>
+      <YAxis dataKey="incomplete"/>
       <CartesianGrid strokeDasharray="3 3"/>
       <Tooltip/>
       <Legend />
-      <Bar dataKey="Remaining" stackId="a" fill="#8884d8" />
-      <Bar dataKey="Finished" stackId="a" fill="#E2624B" />
+      <Bar dataKey="completed" stackId="a" fill="#8884d8" />
+      <Bar dataKey="incomplete" stackId="a" fill="#E2624B" />
     </BarChart>
     )
   }

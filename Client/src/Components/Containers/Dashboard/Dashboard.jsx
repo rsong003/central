@@ -9,21 +9,6 @@ import {connect} from 'react-redux'
 import {getUsersTasks, getAllTasks, findAllTasksOfUser, getAllUsers} from '../../../Actions/index.js'
 import {bindActionCreators} from 'redux'
 
-
-
-const mapStateToProps = (state) =>{
-  //console.log('this is the state in main DASHBOARD', state)
-  return {
-    allTasks: state.tasks.allTasks,
-    allUsers: state.tasks.allUsers,
-    allTasksUsers: state.tasks.usersTasks,
-    mappedUsersAndTasks : mapUserstoAllTasks(state.tasks.allTasks, state.tasks.allUsers)
-  }
-}
-const mapDispathToProps = (dispatch) => {
-  return bindActionCreators({getUsersTasks, getAllTasks, findAllTasksOfUser, getAllUsers}, dispatch)
-}
-
 const mapUserstoAllTasks = (allTasks, allUsers) =>{
   let nameObjects = {}
   let userObjects = []
@@ -38,26 +23,39 @@ const mapUserstoAllTasks = (allTasks, allUsers) =>{
     allTasks[i].owner = nameObjects[allTasks[i].owner]
   }
   for (let i = 0; i < users.length; i++){
-    users[i] = {name: users[i], completed: 0, incomplete: 0}
-    for (let j = 0; j < allTasks.length; j++){
-      console.log(allTasks[j].owner, users[i].name)
-      if (allTasks[j].owner === users[i].name && allTasks[j].status === -1){
-        users[i].incomplete++
-      } else {
-        users[i].completed++
-      }
+    users[i] = getIncompleteVsComplete(users[i], allTasks)
+  }
+  return users
+}
+
+const getIncompleteVsComplete= (owner, tasksArray) => {
+  let userObject = {name : owner, completed: 0, incomplete: 0}
+  for (let i = 0; i < tasksArray.length; i++){
+    if (tasksArray[i].owner === owner && tasksArray[i].status===-1){
+      userObject.incomplete++
+    }
+    if (tasksArray[i].owner === owner && tasksArray[i].status===1){
+      userObject.completed++
     }
   }
-  
-
-
-
-
-  console.log(users)
-
-  console.log(nameObjects)
-  console.log(allTasks)
+  console.log(userObject)
+  return userObject
 }
+
+const mapStateToProps = (state) =>{
+  //console.log('this is the state in main DASHBOARD', state)
+  return {
+    allTasks: state.tasks.allTasks,
+    allUsers: state.tasks.allUsers,
+    allTasksUsers: state.tasks.usersTasks,
+    mappedUsersAndTasks : mapUserstoAllTasks(state.tasks.allTasks, state.tasks.allUsers)
+  }
+}
+const mapDispathToProps = (dispatch) => {
+  return bindActionCreators({getUsersTasks, getAllTasks, findAllTasksOfUser, getAllUsers}, dispatch)
+}
+
+
 
 
 class Dashboard extends Component{
@@ -65,11 +63,12 @@ class Dashboard extends Component{
     super(props)
     this.state = {
       auth: new Auth()
+      // barchart: []
     }
   }
   
   render() {
-    
+    console.log(this.state)
     return(
       <div className="dashboard-container">
         <div className="left-col">
@@ -89,7 +88,8 @@ class Dashboard extends Component{
 					<div className="graph-container">
 						<h3>HRLA16</h3>
             <hr></hr>
-          	  <BarGraph allTasks={this.props.allTasks} allTasksUsers={this.props.allTasksUsers} allUsers={this.props.allUsers}/>
+            <BarGraph allTasksAndUsers={this.props.mappedUsersAndTasks} allTasksUsers={this.props.allTasksUsers} allUsers={this.props.allUsers}/>
+          	  
 						<h3>Sprints</h3>
             <hr></hr>
 						<div className="row">
