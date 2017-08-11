@@ -18,7 +18,7 @@ const mapUserstoAllTasks = (allTasks, allUsers) =>{
     if (!users.includes(allUsers[i].username)){
       users.push(allUsers[i].username)
     }
-  }
+  } 
   for (let i = 0; i < allTasks.length; i++){
     allTasks[i].owner = nameObjects[allTasks[i].owner]
   }
