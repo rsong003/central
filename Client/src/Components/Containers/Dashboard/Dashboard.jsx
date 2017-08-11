@@ -10,10 +10,12 @@ import {getUsersTasks, getAllTasks, findAllTasksOfUser, getAllUsers} from '../..
 import {bindActionCreators} from 'redux'
 
 const mapUserstoAllTasks = (allTasks, allUsers) =>{
+ 
   let nameObjects = {}
   let userObjects = []
   let users = []
   for (let i = 0; i < allUsers.length; i++){
+    //console.log('hello')
     nameObjects[allUsers[i].id] = allUsers[i].username
     if (!users.includes(allUsers[i].username)){
       users.push(allUsers[i].username)
@@ -29,16 +31,19 @@ const mapUserstoAllTasks = (allTasks, allUsers) =>{
 }
 
 const getIncompleteVsComplete= (owner, tasksArray) => {
+  console.log(owner)
   let userObject = {name : owner, completed: 0, incomplete: 0}
   for (let i = 0; i < tasksArray.length; i++){
+    console.log(tasksArray[i].owner, owner)
     if (tasksArray[i].owner === owner && tasksArray[i].status===-1){
       userObject.incomplete++
-    }
-    if (tasksArray[i].owner === owner && tasksArray[i].status===1){
+    } 
+   
+    if (tasksArray[i].owner === owner && tasksArray[i].status===1){ 
       userObject.completed++
     }
   }
-  console.log(userObject)
+ 
   return userObject
 }
 
@@ -68,7 +73,6 @@ class Dashboard extends Component{
   }
   
   render() {
-    console.log(this.state)
     return(
       <div className="dashboard-container">
         <div className="left-col">
